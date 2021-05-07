@@ -2,7 +2,7 @@
 
 const int ELFHDR_SIZE = sizeof(ELF_Header);
 const int PRGHDR_SIZE = sizeof(ProgHeader);
-const int PRGHDR_CNT  = 3; // .data, .text, and section for dynamic memory
+const int PRGHDR_CNT  = 3; // .data, .text, and header for dynamic memory mapping
 const int HDR_SIZE    = ELFHDR_SIZE + PRGHDR_SIZE * PRGHDR_CNT;
 
 const int GLOBL_DISPL = 0x400000; // to be somewhat next to 0x400100 - standard offset
