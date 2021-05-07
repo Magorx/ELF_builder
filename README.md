@@ -12,8 +12,7 @@ First thing to meantion are main tools that will guide us throw thicket of ELFs.
 - readelf
 - xxd
 
-I am not going to show their usage on executables from primitive .c files, because it will still be much more, than we need
-Now let's head to our first hand-made ELF!
+I am not going to show their usage on executables from primitive .c files, because it will still be much more, than we need. Now let's head to our first hand-made ELF!
 
 # Programm
 We still need to have some code to be put into ELF. Let it be just syscall(exit):
@@ -90,6 +89,5 @@ struct ProgHeader {
 };
 ```
 
-#
-
-
+# eff_builder.cpp
+I'm too lazy to continue, just check implementation, there's nothing hard in it (ha-ha)
