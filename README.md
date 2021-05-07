@@ -3,6 +3,7 @@
 Useful links to check out:
 - https://en.wikipedia.org/wiki/Executable_and_Linkable_Format
 - https://wiki.osdev.org/Executable_and_Linkable_Format
+- [this picture](https://wiki.osdev.org/File:Elfdiagram.png)
 
 In this small tutorial we are not going to learn everythning about ELF. Instead we will get an easy-to-use code and undestand some basic features of ELF along the way.
 Our main goal is: given ```char *buffer``` of machine code and some meta-information produce minimal ELF file, that could be run without segfault.
@@ -11,7 +12,6 @@ Our main goal is: given ```char *buffer``` of machine code and some meta-informa
 First thing to meantion are main tools that will guide us throw thicket of ELFs. I suppose, you have already heared something about:
 - readelf
 - xxd
-- [this picture](https://wiki.osdev.org/File:Elfdiagram.png)
 
 I am not going to show their usage on executables from primitive .c files, because it will still be much more, than we need. Now let's head to our first hand-made ELF!
 
