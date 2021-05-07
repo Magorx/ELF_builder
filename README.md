@@ -56,18 +56,18 @@ struct ELF_Header {
     B8 E_SHOFF       = 0x0000000000000000;   // start of the section header table - we will not need it
     B4 E_FLAGS       = 0x00000000;           // interpretation of this field depends on the target architecture @wiki
     B2 E_EHSIZE      = 0x0040;               // size of this header -> sizeof(ELF_Header)
-    B2 E_PHENTSIZE   = 0x0038;               // size of program header table -> sizeof(ProgHeader), that is covered later
+    B2 E_PHENTSIZE   = 0x0038;               // size of program header table -> sizeof(ProgHeader) (covered later)
     B2 E_PHNUM       = 0x0003;               // number of entries in the progtam header file - changed during run-time, but in fact 3
     B2 E_SHENTSIZE   = 0x0000;               // size of the section header table - we will not need it
     B2 E_SHNUM       = 0x0000;               // number of entries in the section header table - we will not need it
-    B2 E_SHSTRNDX    = 0x0000;               // section header, that contains section names - we will not need it
+    B2 E_SHSTRNDX    = 0x0000;               // section header that contains section names - we will not need it
 };
 ```
 
 # Programm-Header
 ```
 struct ProgHeader {
-    B4 P_TYPE    = 0x00000000 | PT_LOAD;       // This segment will loaded in memory
+    B4 P_TYPE    = 0x00000000 | PT_LOAD;       // This segment will be loaded in memory
     B4 P_FLAGS   = 0x00000000;                 // We will need Read, Write, or/and Execute from this
     B8 P_OFFSET  = 0x0000000000000000;         // Offset from the start of the ELF file where the data defined by this header is located
     B8 P_VADDR   = 0x0000000000400000;         // Virtual address where the data will be loaded in run-time
@@ -79,4 +79,4 @@ struct ProgHeader {
 ```
 
 # eff_builder.cpp
-I'm too lazy to continue, just check implementation, there's nothing hard in it (ha-ha-ha)
+I'm too lazy to continue, just look at the implementation, there's nothing hard in it (ha-ha-ha)
