@@ -14,18 +14,6 @@ First thing to meantion are main tools that will guide us throw thicket of ELFs.
 
 I am not going to show their usage on executables from primitive .c files, because it will still be much more, than we need. Now let's head to our first hand-made ELF!
 
-# Programm
-We still need to have some code to be put into ELF. Let it be just syscall(exit):
-```
-mov rax, 0x3c
-xor rdi, rdi
-syscall
-```
-Or it's machinary equivalent:
-```
-[0x48, 0xC7, 0xC0, 0x3C, 0x00, 0x00, 0x00, 0x48, 0x31, 0xFF, 0x0F, 0x05]
-```
-
 # Executable Linkable Format
 (not linkable in our case)
 
