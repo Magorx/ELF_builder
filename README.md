@@ -90,4 +90,4 @@ struct ProgHeader {
 ```
 
 # eff_builder.cpp
-I'm too lazy to continue, just check implementation, there's nothing hard in it (ha-ha)
+I'm too lazy to continue, just check implementation, there's nothing hard in it (ha-ha-ha)

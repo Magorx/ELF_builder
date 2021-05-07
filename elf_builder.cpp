@@ -12,8 +12,8 @@ const int ELF_TEXT_OFFSET = 0x1000; // offset of .text in ELF file
 const int ELF_DATA_OFFSET = 0x0000; // offset of .data in ELF file - well, i want to initialize data with ELF-header :)
 
 const int ELF_BSS_OFFSET = 0;       // offset of .bss for dynamic memory in ELF file - we won't load anything from file
-const int ELF_BSS_VADDR = 0x500000; // virtual address for dynamic memory - i just chose this one
-const int ELF_BSS_SIZE = 5000000;   // size of dynamic memory - i just chose that one
+const int ELF_BSS_VADDR  = 0x500000; // virtual address for dynamic memory - i just chose this one
+const int ELF_BSS_SIZE   = 5000000;   // size of dynamic memory - i just chose that one
 
 void build_elf(const char *prog, const size_t prog_size, size_t entry_offset, FILE *file, int global_data_size, bool to_add_exit_code_zero) {
     ELF_Header elf_h ;
@@ -30,7 +30,6 @@ void build_elf(const char *prog, const size_t prog_size, size_t entry_offset, FI
     prog_h.P_MEMSZ  = prog_size;
     prog_h.P_FLAGS  = PF_R | PF_X | PF_W;
     fwrite(&prog_h, sizeof(prog_h), 1, file);
-    // fwrite(&prog_h, sizeof(prog_h), 1, file);
 
     prog_h.P_TYPE   = PT_LOAD;
     prog_h.P_VADDR  = GLOBL_DISPL;
