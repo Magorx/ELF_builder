@@ -2,18 +2,18 @@
 
 const int ELFHDR_SIZE = sizeof(ELF_Header);
 const int PRGHDR_SIZE = sizeof(ProgHeader);
-const int PRGHDR_CNT  = 3;
+const int PRGHDR_CNT  = 3; // .data, .text, and section for dynamic memory
 const int HDR_SIZE    = ELFHDR_SIZE + PRGHDR_SIZE * PRGHDR_CNT;
 
-const int GLOBL_DISPL = 0x400000;
-const int ENTRY_POINT = 0x1000;
+const int GLOBL_DISPL = 0x400000; // to be somewhat next to 0x400100 - standard offset
+const int ENTRY_POINT = 0x1000;   // we will load .text here
 
-const int ELF_TEXT_OFFSET = 0x1000;
-const int ELF_DATA_OFFSET = 0x0000;
+const int ELF_TEXT_OFFSET = 0x1000; // offset of .text in ELF file
+const int ELF_DATA_OFFSET = 0x0000; // offset of .data in ELF file - well, i want to initialize data with ELF-header :)
 
-const int ELF_BSS_OFFSET = 0;
-const int ELF_BSS_VADDR = 0x500000;
-const int ELF_BSS_SIZE = 5000000;
+const int ELF_BSS_OFFSET = 0;       // offset of .bss for dynamic memory in ELF file - we won't load anything from file
+const int ELF_BSS_VADDR = 0x500000; // virtual address for dynamic memory - i just chose this one
+const int ELF_BSS_SIZE = 5000000;   // size of dynamic memory - i just chose that one
 
 void build_elf(const char *prog, const size_t prog_size, size_t entry_offset, FILE *file, int global_data_size, bool to_add_exit_code_zero) {
     ELF_Header elf_h ;
@@ -23,6 +23,7 @@ void build_elf(const char *prog, const size_t prog_size, size_t entry_offset, FI
     elf_h.E_ENTRY = GLOBL_DISPL + ENTRY_POINT + entry_offset;
     fwrite(&elf_h, sizeof(elf_h), 1, file);
 
+    prog_h.P_TYPE   = PT_LOAD;
     prog_h.P_VADDR  = GLOBL_DISPL + ENTRY_POINT;
     prog_h.P_OFFSET = ELF_TEXT_OFFSET;
     prog_h.P_FILESZ = prog_size;
@@ -31,6 +32,7 @@ void build_elf(const char *prog, const size_t prog_size, size_t entry_offset, FI
     fwrite(&prog_h, sizeof(prog_h), 1, file);
     // fwrite(&prog_h, sizeof(prog_h), 1, file);
 
+    prog_h.P_TYPE   = PT_LOAD;
     prog_h.P_VADDR  = GLOBL_DISPL;
     prog_h.P_OFFSET = ELF_DATA_OFFSET;
     prog_h.P_FILESZ = global_data_size;
@@ -38,6 +40,7 @@ void build_elf(const char *prog, const size_t prog_size, size_t entry_offset, FI
     prog_h.P_FLAGS  = PF_R | PF_W;
     fwrite(&prog_h, sizeof(prog_h), 1, file);
 
+    prog_h.P_TYPE   = PT_LOAD;
     prog_h.P_VADDR  = ELF_BSS_VADDR;
     prog_h.P_OFFSET = ELF_BSS_OFFSET;
     prog_h.P_FILESZ = 0;
@@ -50,9 +53,6 @@ void build_elf(const char *prog, const size_t prog_size, size_t entry_offset, FI
     free(buf);
 
     fwrite(prog, sizeof(byte), prog_size, file);
-
-    // SectionHeader sh;
-    // fwrite(&sh, sizeof(SectionHeader), 1, file);
     
     // don't forget, your prog has to finish itself with:
     // 

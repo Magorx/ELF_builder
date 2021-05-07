@@ -5,6 +5,7 @@
 sponsored by
 1) https://github.com/alpocnito/MIPT/blob/master/2_semestr/RealAsmTranslator/translator.cpp
 2) https://en.wikipedia.org/wiki/Executable_and_Linkable_Format
+3) https://wiki.osdev.org/Executable_and_Linkable_Format
 */
 
 #include <elf.h>
@@ -44,27 +45,14 @@ struct ELF_Header {
 };
 
 struct ProgHeader {
-    B4 P_TYPE    = 0x00000000 | PT_LOAD;       // Segment will loaded in memory
-    B4 P_FLAGS   = 0x00000000;   // Read and Execute
+    B4 P_TYPE    = 0x00000000;                 // Segment will loaded in memory or something
+    B4 P_FLAGS   = 0x00000000;                 // Read and Execute
     B8 P_OFFSET  = 0x0000000000000000;         // Offset where it should be read
     B8 P_VADDR   = 0x0000000000400000;         // Virtual address where it should be loaded
     B8 P_PADDR   = 0x0000000000400000;         // Phsical address where it should be loaded
     B8 P_FILESZ  = 0x0000000000000080;         // Size on file
     B8 P_MEMSZ   = 0x0000000000000080;         // Size in memory (??)
     B8 P_ALIGN   = 0x0000000000000001;         // P_VADDR = P_OFFSET % P_ALIGN ???
-};
-
-struct SectionHeader {
-    B4 SH_NAME      = 0x00000000;
-    B4 SH_TYPE      = 0x00000000 | SHT_PROGBITS;
-    B8 SH_FLAGS     = 0x0000000000000000 | SHF_WRITE | SHF_EXECINSTR | SHF_ALLOC;
-    B8 SH_ADDR      = 0x0000000000000000;
-    B8 SH_OFFSET    = 0x0000000000000078;
-    B8 SH_SIZE      = 0x0000000000100000;
-    B4 SH_LINK      = 0x00000000;
-    B4 SH_INFO      = 0x00000000;
-    B8 SH_ADDRALIGN = 0x0000000000000000;
-    B8 SH_ENTSIZE   = 0x0000000000000000;
 };
 
 extern const int ELFHDR_SIZE;
@@ -81,13 +69,6 @@ extern const int ELF_DATA_OFFSET;
 extern const int ELF_BSS_OFFSET;
 extern const int ELF_BSS_VADDR;
 extern const int ELF_BSS_SIZE;
-
-struct SectionShstrtab {
-    const char names[2][10] = {
-        "aaaa",
-        "bbbb"
-    };
-};
 
 #pragma pack(pop)
 
