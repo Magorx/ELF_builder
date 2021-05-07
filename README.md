@@ -6,7 +6,7 @@ Useful links to check out:
 - [this picture](https://wiki.osdev.org/File:Elfdiagram.png)
 
 In this small tutorial we are not going to learn everythning about ELF. Instead we will get an easy-to-use code and undestand some basic features of ELF along the way.
-Our main goal is: given ```char *buffer``` of machine code and some meta-information produce minimal ELF file, that could be run without segfault.
+Our main goal is: given ```char *buffer``` of machine code and some meta-information produce minimal ELF file that could be run without segfault.
 
 # Tools
 First thing to meantion are main tools that will guide us throw thicket of ELFs. I suppose, you have already heared something about:
